@@ -3,12 +3,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        build(job: 'build-openshift', propagate: true)
+        sh 'mvn clean package'
       }
     }
     stage('Deploy') {
       steps {
-        bat 'java -jar target'
+        sh '''cd target
+java -jar *.jar'''
       }
     }
   }
